@@ -1,6 +1,8 @@
 bed_height = 50; //mm
 bed_width = 300; //mm
 bed_depth = 300; //mm
+y_tray_depth = 80; // mm
+nema17_width = 42.2;
 
 //GT2
 belt_width=6; 

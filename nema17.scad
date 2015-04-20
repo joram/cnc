@@ -1,4 +1,5 @@
 
+
 module nema17(motor_length=50) {
   // NEMA 17 stepper motor.
   difference() {
@@ -34,5 +35,10 @@ module nema17_mount_plate(thickness=2){
   }
 }
 
-nema17_mount_plate();
+module mount_plates(){
+  nema17_mount_plate();
+}
+
+mount_plates();
+
 
