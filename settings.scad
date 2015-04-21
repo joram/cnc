@@ -1,4 +1,4 @@
-bed_height = 50; //mm
+bed_height = 55; //mm
 bed_width = 300; //mm
 bed_depth = 300; //mm
 y_tray_depth = 80; // mm

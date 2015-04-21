@@ -36,9 +36,10 @@ module nema17_mount_plate(thickness=2){
 }
 
 module mount_plates(){
-  nema17_mount_plate();
+  translate([28, bed_height/2 , bed_depth/2+nema17_width/2 + 5]) union(){
+    nema17_mount_plate();
+    //nema17();
+  }
 }
-
-mount_plates();
 
 
