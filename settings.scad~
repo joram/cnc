@@ -2,7 +2,6 @@ bed_height = 55; //mm
 bed_width = 300; //mm
 bed_depth = 300; //mm
 nema17_width = 42.2;
-axle_diameter = 8;
 
 //GT2
 belt_width=6; 

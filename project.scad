@@ -3,32 +3,39 @@ include <./settings.scad>
 include <./axles.scad>
 include <./bearings.scad>
 include <./nema17.scad>
+axle_offsets = [[0, 0], [0, bed_height], [bed_width, 0], [bed_width, bed_height]];
 
-module sliding_nema17_mount(){
-  thickness = 2;
-  axle_offsets = [[0, 0], [0, bed_height], [bed_width, 0], [bed_width, bed_height]];
-  wall_depth = y_tray_depth+24+thickness*2;
 
-  // axle sheethes
+//sliding_nema17_mount();
+//axles();
+//bearings();
+
+module sliding_tray(thickness=2, depth=100, tolerance=0.2){
+  linear_bearing_housing_diameter = 15 + thickness*2 + tolerance*2;
+  linear_bearing_housing_length = 24+thickness*2-tolerance;
+  width = bed_height + linear_bearing_housing_diameter;
+  depth_offset = depth - linear_bearing_housing_length/2 - thickness*3;
+  offsets = [
+    [bed_height/2, 0, thickness*4],
+    [-bed_height/2, 0, thickness*4],
+    [bed_height/2, 0, depth_offset],
+    [-bed_height/2, 0, depth_offset]];
+  standard_offset = [0,-linear_bearing_housing_diameter/2-thickness/2,-depth/2-linear_bearing_housing_length/2];
+  nut_wall_thickness = 10;
+  nut_wall_offsets = [
+    [0, -linear_bearing_housing_diameter/2, depth/2-linear_bearing_housing_length/2],
+    [0, -linear_bearing_housing_diameter/2, -depth/2+linear_bearing_housing_length/2],
+  ];
+
   union(){
-    for( offset = axle_offsets){
-      translate([0, 0, bed_depth/2 - 20 -thickness]) translate(offset) linear_bearing(length=24+thickness*2, tolerance=thickness);
-      translate([0, 0, bed_depth/2 + 60-thickness]) translate(offset) linear_bearing(length=24+thickness*2, tolerance=thickness);
+    cube([width,thickness,depth], center=true);
+    for(offset = offsets){
+      translate(standard_offset) translate(offset)linear_bearing_housing();
     }
-
-    translate([-8.5, bed_height/2, bed_depth/2+wall_depth/2-14.5]) cube([thickness, bed_height+4, 108], center=true);
-
-    // joing wall
-    union() {
-      //mount_plates();
-      translate([21, bed_height/2-10, bed_depth/2+wall_depth/2-27]) cube([60, 37, thickness], center=true);
-      translate([30, 0, bed_depth/2+wall_depth/2-37.5]) cube([bed_height-13, thickness, 23], center=true);
-      translate([6, 0, bed_depth/2]) rotate([0, 90]) cylinder(r=6, h=45);
-
+    for(offset = nut_wall_offsets){
+      translate(offset) cube([width-linear_bearing_housing_diameter/2, linear_bearing_housing_diameter, nut_wall_thickness], center=true);
     }
   }
 }
 
-sliding_nema17_mount();
-//axles();
-//bearings();
+sliding_tray();
