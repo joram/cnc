@@ -5,31 +5,51 @@ include <./bearings.scad>
 include <./nema17.scad>
 axle_offsets = [[0, 0], [0, bed_height], [bed_width, 0], [bed_width, bed_height]];
 
-module sliding_tray(thickness=2, depth=100, tolerance=0.2){
-  linear_bearing_housing_diameter = 15 + thickness*2 + tolerance*2;
-  linear_bearing_housing_length = 24+thickness*2-tolerance;
-  width = bed_height + linear_bearing_housing_diameter;
-  depth_offset = depth - linear_bearing_housing_length/2 - thickness*3;
-  offsets = [
-    [bed_height/2, 0, thickness*4],
-    [-bed_height/2, 0, thickness*4],
-    [bed_height/2, 0, depth_offset],
-    [-bed_height/2, 0, depth_offset]];
-  standard_offset = [0,-linear_bearing_housing_diameter/2-thickness/2,-depth/2-linear_bearing_housing_length/2];
-  nut_wall_thickness = 10;
-  nut_wall_offsets = [
-    [0, -linear_bearing_housing_diameter/2, depth/2-linear_bearing_housing_length/2],
-    [0, -linear_bearing_housing_diameter/2, -depth/2+linear_bearing_housing_length/2],
-  ];
+module solid_sliding_tray(thickness=2, depth=100, tolerance=0.2){
+  w = bed_height;
+  lb_outer_diameter=15;
+  lb_length = 24;
+  lb_housing_d = lb_outer_diameter + thickness*2 + tolerance*2;
+  lb_housing_h = lb_length + (thickness + tolerance)*2;
+  lb_offsets = [[w/2, depth/2], [w/2, -depth/2], [-w/2, depth/2], [-w/2, -depth/2]];
+  nut_wall_offsets = [[0, depth/2, lb_housing_d/2], [0, -depth/2, lb_housing_d/2]];
 
-  union(){
-    cube([width,thickness,depth], center=true);
-    for(offset = offsets){
-      translate(standard_offset) translate(offset)linear_bearing_housing();
-    }
-    for(offset = nut_wall_offsets){
-      translate(offset) cube([width-linear_bearing_housing_diameter/2, linear_bearing_housing_diameter, nut_wall_thickness], center=true);
-    }
+  translate([0,0, thickness/2]) union(){
+    translate([0,0,-thickness/2]) cube([w+lb_housing_d, depth+lb_housing_h, thickness], center=true); // floor
+    for(offset = lb_offsets){ translate(offset) solid_lb_housing(); }  // linear bearings
+    for(offset = nut_wall_offsets){ translate(offset) cube([w+lb_housing_d, 10, lb_housing_d], center=true); } // nut walls
+  }
+}
+
+module empty_sliding_tray(thickness=2, depth=100, tolerance=0.2){
+  w = bed_height;
+  lb_outer_diameter=15;
+  lb_length = 24;
+  lb_housing_d = lb_outer_diameter + thickness*2 + tolerance*2;
+  lb_housing_h = lb_length + (thickness + tolerance)*2;
+  lb_offsets = [[w/2, depth/2], [w/2, -depth/2], [-w/2, depth/2], [-w/2, -depth/2]];
+
+  nut_h = 4;
+  nut_r = 6;
+  nut_wall_offsets = [[0, depth/2, lb_housing_d/2], [0, -depth/2, lb_housing_d/2]];
+
+  bolt_h = lb_length*4;
+  bolt_r = 2;
+  bolt_offsets = [[w/3.5,depth/2], [w/3.5, -depth/2], [-w/3.5,depth/2], [-w/3.5,-depth/2]];
+  threaded_bolt_r = 4;
+
+  translate([0,0, thickness/2]) union(){
+    translate([0,0,lb_housing_d/2]) rotate([90,0,0])cylinder(r=threaded_bolt_r+tolerance, h=depth*2, center=true);
+    for(offset = lb_offsets){ translate(offset) empty_lb_housing(); }  // linear bearings
+    for(offset = nut_wall_offsets){ translate(offset) rotate([90,90]) cylinder(r=nut_r, h=nut_h, $fn=6,center=true); } // nuts
+    for(offset = bolt_offsets){ translate(offset) cylinder(r=bolt_r, h=bolt_h,center=true); } // bolts
+  }
+}
+
+module sliding_tray(thickness=2, depth=100, tolerance=0.2){
+  difference(){
+    solid_sliding_tray(thickness, depth, tolerance);
+    empty_sliding_tray(thickness, depth, tolerance);
   }
 }
 
