@@ -1,0 +1,75 @@
+
+include <./settings.scad>
+include <./axles.scad>
+include <./bearings.scad>
+include <./nema17.scad>
+axle_offsets = [[0, 0], [0, bed_height], [bed_width, 0], [bed_width, bed_height]];
+
+module solid_sliding_tray(thickness=2, depth=100, tolerance=0.2){
+  w = bed_height;
+  lb_outer_diameter=15;
+  lb_length = 24;
+  lb_housing_d = lb_outer_diameter + thickness*2 + tolerance*2;
+  lb_housing_h = lb_length + (thickness + tolerance)*2;
+  lb_offsets = [[w/2, depth/2], [w/2, -depth/2], [-w/2, depth/2], [-w/2, -depth/2]];
+  nut_wall_offsets = [[0, depth/2, lb_housing_d/2], [0, -depth/2, lb_housing_d/2]];
+
+  translate([0,0, thickness/2]) union(){
+    translate([0,0,-thickness/2]) cube([w+lb_housing_d, depth+lb_housing_h, thickness], center=true); // floor
+    for(offset = lb_offsets){ translate(offset) solid_lb_housing(); }  // linear bearings
+    for(offset = nut_wall_offsets){ translate(offset) cube([w+lb_housing_d, 10, lb_housing_d], center=true); } // nut walls
+  }
+}
+
+module empty_sliding_tray(thickness=2, depth=100, tolerance=0.2){
+  w = bed_height;
+  lb_outer_diameter=15;
+  lb_length = 24;
+  lb_housing_d = lb_outer_diameter + thickness*2 + tolerance*2;
+  lb_housing_h = lb_length + (thickness + tolerance)*2;
+  lb_offsets = [[w/2, depth/2], [w/2, -depth/2], [-w/2, depth/2], [-w/2, -depth/2]];
+
+  nut_h = 4;
+  nut_r = 6;
+  nut_wall_offsets = [[0, depth/2, lb_housing_d/2], [0, -depth/2, lb_housing_d/2]];
+
+  bolt_h = lb_length*4;
+  bolt_r = 2;
+  bolt_offsets = [[w/3.5,depth/2], [w/3.5, -depth/2], [-w/3.5,depth/2], [-w/3.5,-depth/2]];
+  threaded_bolt_r = 4;
+
+  translate([0,0, thickness/2]) union(){
+    translate([0,0,lb_housing_d/2]) rotate([90,0,0])cylinder(r=threaded_bolt_r+tolerance, h=depth*2, center=true);
+    for(offset = lb_offsets){ translate(offset) empty_lb_housing(); }  // linear bearings
+    for(offset = nut_wall_offsets){ translate(offset) rotate([90,90]) cylinder(r=nut_r, h=nut_h, $fn=6,center=true); } // nuts
+    for(offset = bolt_offsets){ translate(offset) cylinder(r=bolt_r, h=bolt_h,center=true); } // bolts
+  }
+}
+
+module sliding_tray(thickness=2, depth=100, tolerance=0.2){
+  difference(){
+    solid_sliding_tray(thickness, depth, tolerance);
+    empty_sliding_tray(thickness, depth, tolerance);
+  }
+}
+
+module sliding_tray_nema17_mount(thickness=2, depth=100, tolerance=0.2){
+  w = bed_height;
+  lb_outer_diameter=15;
+  lb_length = 24;
+  lb_housing_d = lb_outer_diameter + thickness*2 + tolerance*2;
+  lb_housing_h = lb_length + (thickness + tolerance)*2;
+  nut_wall_thickness = 10;
+  nema17_width = 42.2;
+
+  union(){
+    translate([0,0, lb_housing_d+thickness]) cube([w+lb_housing_d, depth+nut_wall_thickness, thickness], center=true); // floor
+    translate([0,0, lb_housing_d+thickness*2]) cube([w+lb_housing_d, nema17_width, thickness], center=true); // floor
+    solid_sliding_tray(thickness, depth, tolerance);
+    translate([15,0,nema17_width/2+lb_housing_d+thickness*2]) rotate([0, 90]) nema17_mount_plate();
+  }
+
+  //#translate([15,0,nema17_width/2+lb_housing_d+thickness*2]) rotate([0, 90]) nema17();
+}
+
+sliding_tray_nema17_mount();
