@@ -4,7 +4,7 @@ include <components/kp08.scad>;
 include <components/sk8.scad>;
 
 vertical_plate_w = spindle_plate_h;
-vertical_plate_h = 600;
+vertical_plate_h = 575;
 vertical_plate_thickness = 10;
 
 module vertical_plate(show_bolts=false, show_mounts=false){
@@ -44,7 +44,7 @@ module vertical_plate(show_bolts=false, show_mounts=false){
     if(show_bolts==true){
         translate(bearings_offset) union(){
             for(t=horizontal_sc8uu_offsets){
-                translate(t) rotate([0, 0, 90]) kp08(true);
+                translate(t) rotate([0, 0, 90]) sc8uu_bearing(true);
             }
         }
         for(t=vertical_kp08_offsets){
@@ -81,5 +81,5 @@ module vertical_plate(show_bolts=false, show_mounts=false){
 
 }
 
-vertical_plate();
-%vertical_plate(false, true);
+//vertical_plate();
+//%vertical_plate(false, true);

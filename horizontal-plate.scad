@@ -4,7 +4,7 @@ include <components/kp08.scad>;
 include <components/sk8.scad>;
 
 horizontal_plate_w = spindle_plate_h;
-horizontal_plate_h = 600;
+horizontal_plate_h = 575;
 horizontal_plate_thickness = 10;
 horizontal_beam_length = horizontal_plate_h - (horizontal_plate_w/2 - sc8uu_w/2)*2 - sc8uu_w;
 horizontal_beam_offset = horizontal_plate_w/2 - sc8uu_w/2+sc8uu_w/2;
@@ -14,7 +14,7 @@ module horizontal_beam_bolt(){
     cylinder(d=4, h=50, center=true);
 }
     
-module horizontal_plate(show_bolts=false, show_mounts=false){
+module horizontal_plate(show_bolts=false, show_mounts=false, show_body=true){
 
     dx = horizontal_plate_w/2 - sc8uu_w/2;
     dy = spindle_plate_h/2  - sc8uu_l/2;
@@ -58,10 +58,10 @@ module horizontal_plate(show_bolts=false, show_mounts=false){
         }
     }
     
-    if(show_bolts==false){
+    if(show_body==true){
         difference(){
             translate([0, 0, horizontal_plate_thickness/2]) cube([horizontal_plate_w, horizontal_plate_h, horizontal_plate_thickness], true);
-            horizontal_plate(true);
+            horizontal_plate(true, false, false);
         }
     }
 
@@ -86,5 +86,5 @@ module horizontal_plate(show_bolts=false, show_mounts=false){
 
 }
 
-horizontal_plate();
-horizontal_plate(false, true);
+//horizontal_plate();
+//horizontal_plate(false, true);
