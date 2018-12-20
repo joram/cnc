@@ -17,3 +17,7 @@ Same as `Stock Slippage`
 ![model origin example](https://lh3.googleusercontent.com/5Rb-ZSzZFDaninfDXt5FVSv54ZFPO3YPs4qB9GPZXhAcuzTi9tC0n2zDV6-qIzB_at-JtLGqfSBiFv2VKmg3dzT2kL5WLJw5bpFtXIv03030YuJ1XTXKcDOQkVxNNPNzoSaIEdkV_iw0_QlpLNtz453sxpPV01c77xiRpWPS0SfK0g1eTHync5w49NxA8rlEKdJw_KvTz4cPZf7_ePxnFTwcU8m4qEJBeVEpNlQfp5Le6vB5vqMfnBeIcVNmV0pbdkD-65LxMVt7RTTPaKKBGZ5zQJrM_TcFhgLKIhd5p1XPeDRIuXkpw4VafWayWM2IhL7rjPJC_46ELW1tNr9cZx21IMgJUjZy9jK6BK5SbKO5tUk8nmYWQ7vnQDQEWOPzYqiubeNjyErWmoiRokIZmCK4HhNdfE915587fkl2cTEG9pWxqPzebYw6zXn7O_Fm9u1omaj9ECfmpYmQoNmMw6yNGkGigWklXzD3n91msOYaweW9xWOH4CUhBVI-88i-a7fjBrO-2rVqqRr8SJLgchaMoW_USzjYhG7h2ievUGTHMBH1hUVwvQtkAPpGYyb_QOwHW0yraCK3tlq00-CMs_T3-QZaiYfGl9og3oi5vpTn9W1Rbu5Nhui2DJq8YB5R6sjibgcyxVtNKQK2exXe7_vGegr-iEKA1svmnorK6yswAtDVSruunZEs8orRdYgz0pp2NQeo-TATmd2Z3JA=w690-h300-no)
 This was caused by selecting part of the model's bounding box as the origin instead of the stock's.
 Fixed by picking the origin to be a recognizable edge of the bounding box, with a significant enough headroom on the stock to account for any sort of tilt.
+
+
+## Why is the toolpath not generating!?
+right click mesh, and then "meshg to brep"
