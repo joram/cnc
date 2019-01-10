@@ -21,3 +21,19 @@ Fixed by picking the origin to be a recognizable edge of the bounding box, with 
 
 ## Why is the toolpath not generating!?
 right click mesh, and then "meshg to brep"
+
+## Studdering
+Don't randomly turn the potentiometers, you're bound to make it worse. Calibrate the current limit with the instructions.
+The Pololu driver docs [here](https://www.pololu.com/product/2133) show
+```
+To achieve high step rates, the motor supply is typically much higher than would be permissible without active current limiting. For instance, a typical stepper motor might have a maximum current rating of 1 A with a 5Ω coil resistance, which would indicate a maximum motor supply of 5 V. Using such a motor with 12 V would allow higher step rates, but the current must actively be limited to under 1 A to prevent damage to the motor.
+
+The DRV8825 supports such active current limiting, and the trimmer potentiometer on the board can be used to set the current limit. You will typically want to set the driver’s current limit to be at or below the current rating of your stepper motor. One way to set the current limit is to put the driver into full-step mode and to measure the current running through a single motor coil without clocking the STEP input. The measured current will be 0.7 times the current limit (since both coils are always on and limited to approximately 70% of the current limit setting in full-step mode).
+
+Another way to set the current limit is to measure the voltage on the “ref” pin and to calculate the resulting current limit (the current sense resistors are 0.100Ω). The ref pin voltage is accessible on a via that is circled on the bottom silkscreen of the circuit board. The current limit relates to the reference voltage as follows:
+
+Current Limit = VREF × 2
+
+So, for example, if you have a stepper motor rated for 1 A, you can set the current limit to 1 A by setting the reference voltage to 0.5 V.
+
+Note: The coil current can be very different from the power supply current, so you should not use the current measured at the power supply to set the current limit. The appropriate place to put your current meter is in series with one of your stepper motor coils.```
