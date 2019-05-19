@@ -37,3 +37,11 @@ Current Limit = VREF × 2
 So, for example, if you have a stepper motor rated for 1 A, you can set the current limit to 1 A by setting the reference voltage to 0.5 V.
 
 Note: The coil current can be very different from the power supply current, so you should not use the current measured at the power supply to set the current limit. The appropriate place to put your current meter is in series with one of your stepper motor coils.```
+
+## An Axis Stopping Completely
+This is because the driver overheated.
+We now have heatsinks on the drivers, check that they are still attached.
+The current limit may be too high (see how to calibrate in the `Studdering` section), and lower that value a bit.
+The side effect of lowering hte vref is that axis provides less power.
+
+
