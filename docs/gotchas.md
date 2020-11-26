@@ -1,6 +1,16 @@
 # Gotchas
 These are notes around different types of failures in the carving process.
 
+
+## Grbl not responding
+- run the protoneer image ![here](https://wiki.protoneer.co.nz/Raspberry_Pi_CNC_User_Interface_SD_Card_Image_V5.00)
+- on the desktop there is a script `setup <something>.sh` run it.
+- flash hte firmware
+
+## cncjs not starting on boot
+setup pm2 as these instructions show ![here](https://cnc.js.org/docs/rpi-setup-guide/)
+
+
 ## Axis Slippage
 ![axis slippage example](https://lh3.googleusercontent.com/Vf0Y8VVEjJ2XM6gfTe-zDjV55Q0uxVouj7I30cJ42lzLdh7OGVdnMimoT3kyHdOLQLK_bFZwpQ-9uzBsDDFnQawyxHjg7FAltyq_YpEZxONzpE0hcR4VNmeD5QOT6cWFXODRD8_BUH7obDM7atYq0oNkh568E-1l0KG4vwhDXjikSXXXaNR-3JTx0L15P_WX89kGyRpmtolf3IbHBNCT7BkMqBxoR95_NlBa63khJWMHH-fSJSBdm5Vrd2NoZusO7hkE37n5AbcExqvoOXIvyhH6upn_8W8cLLmsFxBdeF2dmzCbGH-sSv5knCX18n9bRZNoiJXoK2Dhk3JcwXWNa42evSBr8GN3y7uU3fq9eRynD_iHYfY9pYFiTFx5wHtW9T_g1K-J71Bzf2xENI_a-WebhN5yRgjgk2pBvUqSXoCnWpQpf5mZg7kRlRFqIzrELEfpw7lcuLZu1GIEIv4qgefaXftw3JQCacwJqEtqoOXcl26EMpzJHyIRE6uitd6PHaJg2PMdd_Dsdooe2D1qjOXh-qd0Cw80uhUgiOxNyBSG34RLnIA6GS0iraqcG1bBsDZ70utNcAxNZDd2TB_r4R2ho-77oCLuJqkWqaskP4SrkCYxTb1zmkbdyqChTBWvuZGBR25poYXyzmoIu7LBDi1v7WIZvzhcxayTII_GtpPrsDtdCqmJZ2eTfmqPz32NN4oCcdx1u4q6DnxGCY0=w690-h300-no)
 This was caused by the axis max speed being configured too fast. Fixed by using grbl console, `$$` to show the settings, and reducing the max speed with $111=200 (setting max y axis speed to be slower).
