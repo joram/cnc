@@ -1,26 +1,17 @@
-
-
-#NVM
-git clone https://github.com/creationix/nvm.git ~/.nvm
-cd ~/.nvm
-git checkout `git describe --abbrev=0 --tags`
-cd ..
-~/.nvm/install.sh
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-chmod 755 ~/.nvm/nvm.sh
-~/.nvm/nvm.sh
-nvm install v10.13.0
-nvm use v10.13.0
+curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
+sudo apt remove nodejs
+sudo apt install nodejs
 npm install npm@latest -g
 
 # CNCJS
-npm install --save serialport 
-
 sudo npm install --unsafe-perm -g cncjs
 
+# On Boot turn on cncjs
+sudo npm install pm2 -g
+sudo pm2 startup
+sudo env PATH=$PATH:/usr/bin pm2 startup systemd -u pi --hp /home/pi
+pm2 start $(which cncjs) -- --port 8000 -m /tinyweb:/home/pi/tinyweb
+pm2 save
+pm2 list
 
 
