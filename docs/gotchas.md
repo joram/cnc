@@ -8,7 +8,7 @@ These are notes around different types of failures in the carving process.
 - flash hte firmware
 
 ## cncjs not starting on boot
-setup pm2 as these instructions show !(here)[https://cnc.js.org/docs/rpi-setup-guide/]
+setup pm2 as these instructions show [here](https://cnc.js.org/docs/rpi-setup-guide/)
 
 
 ## Axis Slippage
