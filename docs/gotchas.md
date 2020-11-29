@@ -3,7 +3,7 @@ These are notes around different types of failures in the carving process.
 
 
 ## Grbl not responding
-- run the protoneer image !(here)[https://wiki.protoneer.co.nz/Raspberry_Pi_CNC_User_Interface_SD_Card_Image_V5.00]
+- run the protoneer image [here](https://wiki.protoneer.co.nz/Raspberry_Pi_CNC_User_Interface_SD_Card_Image_V5.00)
 - on the desktop there is a script `setup <something>.sh` run it.
 - flash hte firmware
 
