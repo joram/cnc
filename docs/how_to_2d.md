@@ -4,10 +4,10 @@
 ## Make SVG
 use your tool of choice.
 - I've heard inkscape is good
-- using any photo editing tool and then converting to svg (web tool [here](https://www.pngtosvg.com/))
+- using any photo editing tool and then converting to svg (web tool [pngtosvg.com](https://www.pngtosvg.com/))
 
 ## Make GCODE
-use [this](http://jscut.org/jscut.html) tool.
+use [jscut.org](http://jscut.org/jscut.html) tool.
 
 ## Setup Machine
 place the block firmly attached to the board
@@ -21,5 +21,4 @@ place the block firmly attached to the board
 - make sure it will fit the material
 - home XY, then home Z
 - turn on the spindle
-
 - press play
