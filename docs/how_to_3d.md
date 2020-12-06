@@ -1,4 +1,4 @@
-# How To
+# How To (3D)
 There are three phases to building an object with a CnC machine: modeling, caming, carving
 
 ## Modeling
