@@ -26,7 +26,7 @@ module spindle_mount(show_bolts=false){
 
     if(show_bolts == true){
         translate([0,0,spindle_mount_d/2]) union(){
-            spindle();
+//            spindle();
             for(t=offsets){
                 translate(t) cylinder(h=spindle_mount_d*2, d=bolt_d, center=true);
             }

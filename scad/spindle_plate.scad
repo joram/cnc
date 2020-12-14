@@ -45,5 +45,7 @@ module spindle_plate(show_bolts=false, show_mounts=false){
 
 }
 
-//spindle_plate();
+
+
+//projection(cut = false) translate([spindle_plate_w/2,spindle_plate_h/2,0]) spindle_plate(true, false);
 //spindle_plate(false, true);

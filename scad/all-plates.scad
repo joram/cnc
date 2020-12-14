@@ -1,27 +1,24 @@
 include <components/kp08.scad>;
 
-include <horizontal-plate.scad>;
 include <spindle_plate.scad>;
 include <vertical-plate.scad>;
+include <horizontal-plate.scad>;
 
 $fn = 100;
 
-translate([180,190,0]) union(){
+translate([spindle_plate_w/2,30+spindle_plate_h/2,-18])  union(){
     spindle_plate();
-    //%spindle_plate(false, true);
+    spindle_plate(false, true);
 }
 
-union(){
+translate([vertical_plate_w/2, vertical_plate_h/2, -50]) rotate([180,0,0])  union() {
+    vertical_plate();
+    vertical_plate(false, true);
+}
+
+translate([horizontal_plate_w/4, 50+horizontal_plate_h/2, -100]) union(){
   horizontal_plate();
-  //%horizontal_plate(false, true);
+  horizontal_plate(false, true);
 }
 
 
-translate([-210,0,0]) union() {
-    vertical_plate();
- //   vertical_plate(false, true);
-}
-translate([-420,0,0]) union() {
-    vertical_plate();
-//    vertical_plate(false, true);
-}

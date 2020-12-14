@@ -16,7 +16,7 @@ module kp08_bearing(show_axles=false){
         }
     }
     if(show_axles == true){
-        translate([0,0,15])  rotate([90]) cylinder(h=100, d=8, center=true);
+        //translate([0,0,15])  rotate([90]) cylinder(h=100, d=8, center=true);
         translate([0,0, kp08_d/2]) union(){
  
             translate([kp08_center_distance/2, 0]) cylinder(h=100, d=kp08_axle_diameter, center=true);

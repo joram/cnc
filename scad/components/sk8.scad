@@ -15,7 +15,7 @@ module sk8_bearing(show_axles=false){
         }
     }
     if(show_axles == true){
-        translate([0,0,20])  rotate([90]) cylinder(h=100, d=8, center=true);
+       // translate([0,0,20])  rotate([90]) cylinder(h=100, d=8, center=true);
         translate([0,0, sk8_d/2]) union(){
  
             translate([sk8_center_distance/2, 0]) cylinder(h=100, d=sk8_axle_diameter, center=true);

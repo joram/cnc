@@ -13,13 +13,13 @@ module sc8uu(show_bolts=false){
     dx = sc8uu_k/2;
     dy = sc8uu_j/2;
     offsets = [
-        [ dx,-dy],
-        [ dx, dy],
-        [-dx,-dy],
-        [-dx, dy]
+        [ dx,-dy, 20],
+        [ dx, dy, 20],
+        [-dx,-dy, 20],
+        [-dx, dy, 20]
     ];
     if(show_bolts == true) {
-        rotate([90]) cylinder(h=50, d=8, center=true);
+//        rotate([90]) cylinder(h=50, d=8, center=true);
         for(t=offsets){
             translate(t) m4_bolt();
         } 

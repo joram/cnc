@@ -96,9 +96,9 @@ w = 91 + sc8uu_l*2;
 h = 100;
 thickness = 10;
 
-spindle_mount_plate(w, h, thickness, spindle_offset = -h/2+41/2);
-
-#m8_vertical_axles(w, 300, thickness);
-#m8_horizontal_axles(w, 600, thickness);
-horizontal_plate();
+//spindle_mount_plate(w, h, thickness, spindle_offset = -h/2+41/2);
+//
+//#m8_vertical_axles(w, 300, thickness);
+//#m8_horizontal_axles(w, 600, thickness);
+//horizontal_plate();
 
