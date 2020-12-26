@@ -48,7 +48,15 @@ So, for example, if you have a stepper motor rated for 1 A, you can set the curr
 
 Note: The coil current can be very different from the power supply current, so you should not use the current measured at the power supply to set the current limit. The appropriate place to put your current meter is in series with one of your stepper motor coils.
 ```
+### For our stepper motors
+```
+350mA for the nema17 steppers
+0.35/2 = vref = 0.175
 
+2.8a for the nema23 stepper
+2.8/2 = fref = 1.4
+
+```
 ## An Axis Stopping Completely
 This is because the driver overheated.
 We now have heatsinks on the drivers, check that they are still attached.
